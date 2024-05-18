@@ -13,6 +13,7 @@ module nf_loss
    public :: loss_type
    public :: mse
    public :: quadratic
+   public :: binary_entropy
 
    type, abstract :: loss_type
    contains
