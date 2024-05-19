@@ -112,7 +112,11 @@ module nf_loss
       pure module function binary_cross_entropy_eval(true, predicted) result(res)
          !! Binary Cross-Entropy loss function:
          !!
+         !!   given a sigmoid activation function, the binary cross-entropy loss is defined as:
          !!   L  = - sum(true * log(predicted)) - sum((1 - true) * log(1 - predicted))
+         !!
+         !!   given a linear activation function, the binary cross-entropy loss is defined as:
+         !!   L = sum((1 - true) * predicted + log(1 + exp(-predicted)))
          !!
          real, intent(in) :: true(:)
          !! True values, i.e. labels from training datasets
@@ -125,7 +129,11 @@ module nf_loss
       pure module function binary_cross_entropy_derivative(true, predicted) result(res)
          !! First derivative of the binary cross-entropy loss function:
          !!
+         !!   given a sigmoid activation function, the derivative of the binary cross-entropy loss is defined as:
          !!   L' =  - true / predicted + (1 - true) / (1 - predicted)
+         !!
+         !!   given a linear activation function, the derivative of the binary cross-entropy loss is defined as:
+         !!   L' =  (1 - true) - 1 / (1 + exp(-predicted))
          !!
          real, intent(in) :: true(:)
          !! True values, i.e. labels from training datasets
