@@ -133,7 +133,7 @@ module nf_loss
          !!   L' =  - true / predicted + (1 - true) / (1 - predicted)
          !!
          !!   given a linear activation function, the derivative of the binary cross-entropy loss is defined as:
-         !!   L' =  (1 - true) - 1 / (1 + exp(-predicted))
+         !!   L' =  (1 - true) - 1 / (1 + exp(predicted))
          !!
          real, intent(in) :: true(:)
          !! True values, i.e. labels from training datasets
