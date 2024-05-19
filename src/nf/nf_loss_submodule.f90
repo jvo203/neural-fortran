@@ -32,18 +32,18 @@ contains
       res = 2 * (predicted - true) / size(true)
    end function mse_derivative
 
-   pure module function binary_entropy_eval(true, predicted) result(res)
+   pure module function binary_cross_entropy_eval(true, predicted) result(res)
       real, intent(in) :: true(:)
       real, intent(in) :: predicted(:)
       real :: res
       res = -sum(true * log(predicted) + (1 - true) * log(1 - predicted))
-   end function binary_entropy_eval
+   end function binary_cross_entropy_eval
 
-   pure module function binary_entropy_derivative(true, predicted) result(res)
+   pure module function binary_cross_entropy_derivative(true, predicted) result(res)
       real, intent(in) :: true(:)
       real, intent(in) :: predicted(:)
       real :: res(size(true))
       res = -true / predicted + (1 - true) / (1 - predicted)
-   end function binary_entropy_derivative
+   end function binary_cross_entropy_derivative
 
 end submodule nf_loss_submodule

@@ -13,7 +13,7 @@ module nf_loss
    public :: loss_type
    public :: mse
    public :: quadratic
-   public :: binary_entropy
+   public :: binary_cross_entropy
 
    type, abstract :: loss_type
    contains
@@ -48,12 +48,12 @@ module nf_loss
       procedure, nopass :: derivative => quadratic_derivative
    end type quadratic
 
-   type, extends(loss_type) :: binary_entropy
+   type, extends(loss_type) :: binary_cross_entropy
       !! Binary Cross-Entropy loss function
    contains
-      procedure, nopass :: eval => binary_entropy_eval
-      procedure, nopass :: derivative => binary_entropy_derivative
-   end type binary_entropy
+      procedure, nopass :: eval => binary_cross_entropy_eval
+      procedure, nopass :: derivative => binary_cross_entropy_derivative
+   end type binary_cross_entropy
 
    interface
 
@@ -109,7 +109,7 @@ module nf_loss
          !! Resulting loss values
       end function quadratic_derivative
 
-      pure module function binary_entropy_eval(true, predicted) result(res)
+      pure module function binary_cross_entropy_eval(true, predicted) result(res)
          !! Binary Cross-Entropy loss function:
          !!
          !!   L  = - sum(true * log(predicted)) - sum((1 - true) * log(1 - predicted))
@@ -120,9 +120,9 @@ module nf_loss
          !! Values predicted by the network
          real :: res
          !! Resulting loss value
-      end function binary_entropy_eval
+      end function binary_cross_entropy_eval
 
-      pure module function binary_entropy_derivative(true, predicted) result(res)
+      pure module function binary_cross_entropy_derivative(true, predicted) result(res)
          !! First derivative of the binary cross-entropy loss function:
          !!
          !!   L' =  - true / predicted + (1 - true) / (1 - predicted)
@@ -133,7 +133,7 @@ module nf_loss
          !! Values predicted by the network
          real :: res(size(true))
          !! Resulting loss values
-      end function binary_entropy_derivative
+      end function binary_cross_entropy_derivative
 
    end interface
 
